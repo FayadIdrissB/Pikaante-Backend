@@ -1,8 +1,10 @@
 const User = require('../models/User.Model')
 const bcrypt = require('bcrypt')
 
+
+// Fonction d'inscription
 exports.signup = (req, res, next) => {
-  bcrypt.hash(req.body.password, 10)
+  bcrypt.hash(req.body.password, 10) // Utilisation du Hachage du mot de passe sur 10 tour
     .then(hash => {
       const user = new User({
         email: req.body.email,
@@ -15,6 +17,7 @@ exports.signup = (req, res, next) => {
     .catch(error => res.status(500).json({ error }));
 };
 
+// Fonction de connexion 
 exports.login = (req, res, next) => {
    User.findOne({ email: req.body.email })
        .then(user => {
